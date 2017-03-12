@@ -18,9 +18,12 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
+  @include display-flexbox();
+  @include flex-direction(column);
   font: $base-font-weight #{$base-font-size}/#{$base-line-height} $base-font-family;
   color: $text-color;
   background-color: $background-color;
+  min-height: 100vh;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
 }
@@ -156,30 +159,17 @@ pre {
  * Wrapper
  */
 .wrapper {
+  @include display-flexbox();
+  @include flex-wrap(wrap);
   max-width: $content-width;
   margin-right: auto;
   margin-left: auto;
   padding-right: $spacing-unit / 2;
   padding-left: $spacing-unit / 2;
-  @extend %clearfix;
 
   @include at-query($min, $post-medium) {
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
-  }
-}
-
-
-
-/**
- * Clearfix
- */
-%clearfix {
-
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
   }
 }
 

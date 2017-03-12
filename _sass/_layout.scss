@@ -4,19 +4,22 @@
 .site-header {
   border-top: 5px solid $grey-color-dark;
   border-bottom: 1px solid $grey-color-light;
-  min-height: 56px;
 
   // Positioning context for the mobile navigation icon
   position: relative;
+
+  .wrapper {
+    @include justify-content(space-between);
+    @include align-items(center);
+    min-height: 56px;
+  }
 }
 
 .site-title {
   font-size: 26px;
   font-weight: 300;
-  line-height: 56px;
   letter-spacing: -1px;
   margin-bottom: 0;
-  float: left;
 
   &,
   &:visited {
@@ -26,6 +29,9 @@
 
 .site-nav {
   @include at-query($max, $small) {
+    @include display-flexbox();
+    @include flex-direction(column);
+    @include align-items(flex-end);
     position: absolute;
     top: 9px;
     right: $spacing-unit / 2;
@@ -35,15 +41,10 @@
     text-align: right;
   }
 
-  @include at-query($min, $post-small) {
-    float: right;
-    line-height: 56px;
-  }
-
   &:hover {
     .trigger {
       @include at-query($max, $small) {
-        display: block;
+        @include display-flexbox();
         padding-bottom: 5px;
       }
     }
@@ -51,7 +52,6 @@
 
   .menu-icon {
     display: block;
-    float: right;
     width: 36px;
     height: 36px;
     line-height: 0;
@@ -74,8 +74,12 @@
 
   .trigger {
     @include at-query($max, $small) {
-      clear: both;
+      @include flex-direction(column);
       display: none;
+    }
+
+    @include at-query($min, $post-small) {
+      @include display-flexbox();;
     }
   }
 
@@ -84,7 +88,6 @@
     line-height: $base-line-height;
 
     @include at-query($max, $small) {
-      display: block;
       padding: 5px 10px;
       margin-left: 20px;
     }
@@ -111,6 +114,7 @@
 .footer-heading {
   font-size: 18px;
   margin-bottom: $spacing-unit / 2;
+  width: 100%;
 }
 
 .contact-list,
@@ -120,19 +124,24 @@
 }
 
 .footer-col-wrapper {
+  @include flex-grow(1);
   font-size: 15px;
   color: $grey-color;
-  margin-left: -$spacing-unit / 2;
-  @extend %clearfix;
+  width: 100%;
+
+  @include at-query($min, $post-small) {
+    @include display-flexbox();
+    @include flex-wrap(wrap);
+    margin-left: -$spacing-unit / 2;
+  }
 }
 
 .footer-col {
   margin-bottom: $spacing-unit / 2;
-  padding-left: $spacing-unit / 2;
   width: 100%;
 
   @include at-query($min, $post-small) {
-    float: left;
+    padding-left: $spacing-unit / 2;
   }
 }
 
@@ -167,6 +176,7 @@
  * Page content
  */
 .page-content {
+  @include flex-grow(1);
   padding: $spacing-unit 0;
 }
 

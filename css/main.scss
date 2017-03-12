@@ -25,8 +25,6 @@ $grey-color-dark:  darken($grey-color, 25%);
 // Width of the content area
 $content-width:    800px;
 
-$on-palm:          600px;
-$on-laptop:        800px;
 $viewport-increment: 1px;
 $small:            600px;
 $medium:           800px;
@@ -61,6 +59,151 @@ $max: max-width;
       @content;
     }
   }
+}
+
+/*============================================================================
+Prefixer mixin for generating vendor prefixes:
+- Based on https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss
+- Usage:
+
+// Input:
+.element {
+  @include prefixer(transform, scale(1), ms webkit spec);
+}
+
+// Output:
+.element {
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+==============================================================================*/
+@mixin prefixer($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else  {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+/*============================================================================
+  Flexbox prefix mixins from Bourbon
+    https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_flex-box.scss
+==============================================================================*/
+@mixin display-flexbox() {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin flex-wrap($value: nowrap) {
+  @include prefixer(flex-wrap, $value, webkit moz ms spec);
+}
+
+@mixin flex-direction($value: row) {
+  @include prefixer(flex-direction, $value, webkit moz spec);
+  -ms-flex-direction: $value;
+}
+
+@mixin align-items($value: stretch) {
+  // sass-lint:disable no-misspelled-properties
+  $alt-value: $value;
+
+  @if $value == "flex-start" {
+    $alt-value: start;
+  } @else if $value == "flex-end" {
+    $alt-value: end;
+  }
+
+  @include prefixer(align-items, $value, webkit moz ms o spec);
+  -ms-flex-align: $alt-value;
+}
+
+@mixin flex($value) {
+  @include prefixer(flex, $value, webkit moz ms spec);
+}
+
+@mixin flex-basis($width: auto) {
+  @include prefixer(flex-basis, $width, webkit moz spec);
+  -ms-flex-preferred-size: $width;
+}
+
+@mixin align-self($align: auto) {
+
+  $value-2011: $value;
+  @if $value == "flex-start" {
+    $value-2011: start;
+  } @else if $value == "flex-end" {
+    $value-2011: end;
+  }
+
+  @include prefixer(align-self, $align, webkit moz spec);
+  -ms-flex-item-align: $value-2011;
+}
+
+@mixin justify-content($value: flex-start) {
+
+  // Alt values.
+  $alt-value: $value;
+  @if $value == "flex-start" {
+    $alt-value: start;
+  } @else if $value == "flex-end" {
+    $alt-value: end;
+  } @else if $value == "space-between" {
+    $alt-value: justify;
+  } @else if $value == "space-around" {
+    $alt-value: distribute;
+  }
+
+  @include prefixer(justify-content, $value, webkit moz ms o spec);
+  -ms-flex-pack: $alt-value;
+}
+
+@mixin flex-grow($number: 0) {
+  @include prefixer(flex-grow, $number, webkit moz spec);
+  -ms-flex-positive: $number;
+}
+
+@mixin flex-flow($value) {
+  @include prefixer(flex-flow, $value, webkit moz spec);
+}
+
+@mixin order($int: 0) {
+  @include prefixer(order, $int, webkit moz spec);
+  -ms-flex-order: $int;
+}
+
+@mixin flex-shrink($number: 1) {
+  @include prefixer(flex-shrink, $number, webkit moz spec);
+  -ms-flex-negative: $number;
+}
+
+@mixin align-content($value: stretch) {
+
+  $value-2011: $value;
+  @if $value == "flex-start" {
+    $value-2011: start;
+  } @else if $value == "flex-end" {
+    $value-2011: end;
+  } @else if $value == "space-between" {
+    $value-2011: justify;
+  } @else if $value == "space-around" {
+    $value-2011: distribute;
+  }
+
+  @include prefixer(align-content, $value, webkit moz spec);
+  -ms-flex-line-pack: $value-2011;
 }
 
 
