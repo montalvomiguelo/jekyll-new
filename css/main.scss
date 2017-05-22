@@ -139,7 +139,7 @@ Prefixer mixin for generating vendor prefixes:
   -ms-flex-preferred-size: $width;
 }
 
-@mixin align-self($align: auto) {
+@mixin align-self($value: auto) {
 
   $value-2011: $value;
   @if $value == "flex-start" {
@@ -148,7 +148,7 @@ Prefixer mixin for generating vendor prefixes:
     $value-2011: end;
   }
 
-  @include prefixer(align-self, $align, webkit moz spec);
+  @include prefixer(align-self, $value, webkit moz spec);
   -ms-flex-item-align: $value-2011;
 }
 
