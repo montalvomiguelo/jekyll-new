@@ -2,16 +2,16 @@
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
+    <h2 class="footer-heading">{{ site.title }}</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
           <li>
             {% if site.author %}
-              {{ site.author | escape }}
+              {{ site.author }}
             {% else %}
-              {{ site.title | escape }}
+              {{ site.title }}
             {% endif %}
           </li>
           {% if site.email %}
@@ -54,7 +54,7 @@
       </div>
 
       <div class="footer-col footer-col-3">
-        <p>{{ site.description | escape }}</p>
+        <p>{{ site.description }}</p>
       </div>
     </div>
 
